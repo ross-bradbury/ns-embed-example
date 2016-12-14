@@ -1,0 +1,14 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+/app/src/main/java/com/tns/
+nativescript/nativescript.aar
+widgets-release/widgets-release.aar
+/app/src/main/assets/app/
+/app/src/main/assets/internal/
+/app/src/main/assets/metadata/
