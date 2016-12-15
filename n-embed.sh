@@ -1,3 +1,4 @@
+#!/bin/sh
 cp ./nativeScriptPart/node_modules/tns-core-modules/node_modules/tns-core-modules-widgets/platforms/android/widgets-release.aar ./existingAndroidApp/widgets-release/
 cp ./nativeScriptPart/platforms/android/libs/runtime-libs/nativescript.aar ./existingAndroidApp/nativescript/
 cp -R ./nativeScriptPart/platforms/android/src/main/assets/ ./existingAndroidApp/app/src/main/assets/
