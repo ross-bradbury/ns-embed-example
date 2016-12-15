@@ -9,6 +9,8 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    private View spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,37 +25,51 @@ public class MainActivity extends AppCompatActivity {
                 showScreen2(view);
             }
         });
+        fab.setVisibility(View.GONE);
+
+        spinner = findViewById(R.id.spinner);
     }
 
     @Override
     protected void onPause() {
-        findViewById(R.id.spinner).setVisibility(View.GONE);
+        spinner.setVisibility(View.GONE);
         super.onPause();
     }
 
-    public void showScreen1(View view) {
-        findViewById(R.id.spinner).setVisibility(View.VISIBLE);
-
-        show(MyCustomNativeScriptActivity.class);
+    private void showSpinner() {
+        // TODO: This would need to be improved. It just shows something happened when the buttons are tapped.
+        spinner.setVisibility(View.VISIBLE);
     }
 
-    public void showScreen2(View view) {
-        findViewById(R.id.spinner).setVisibility(View.VISIBLE);
+    public void showScreen1(View view) {
+        showSpinner();
 
+        // TODO: Go to /welcome (currently going to "/" and being redirected)
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 show(MyCustomNativeScriptActivity.class);
             }
-        }, 1000);
+        }, 500);
+    }
+
+
+    public void showScreen2(View view) {
+        showSpinner();
+
+        // TODO: Go to /demo
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                show(MyCustomNativeScriptActivity.class);
+            }
+        }, 500);
     }
 
     private <T> void show(Class<T> clazz) {
         com.tns.Runtime runtime = com.tns.RuntimeHelper.initRuntime(getApplication());
         if (runtime != null) {
             runtime.run();
-
-            // TODO: Specify route "/foos/view"
 
             android.content.Intent intent = new android.content.Intent(MainActivity.this, clazz);
             intent.setAction(android.content.Intent.ACTION_DEFAULT);
