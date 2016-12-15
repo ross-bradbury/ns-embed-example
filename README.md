@@ -11,7 +11,7 @@ tns build android
 
 # copy NativeScript project output into Java project
 cd ..
-./n-embed.sh
+./embed.sh
 
 # Build and install java project
 cd existingAndroidApp
