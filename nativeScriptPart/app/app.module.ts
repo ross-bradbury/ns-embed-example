@@ -5,6 +5,7 @@ import { NativeScriptHttpModule } from "nativescript-angular/http";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptFormsModule } from "nativescript-angular/forms"
 
+import { RootComponent } from "./root/root.component";
 import { DemoPageComponent } from "./demo/demo-page.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 
@@ -15,7 +16,7 @@ const authProviders = [
 ];
 
 const appRoutes = [
-  { path: "", redirectTo: "/welcome", pathMatch: "full" },
+  { path: "", component: RootComponent, pathMatch: "full" },
   { path: "demo", component: DemoPageComponent /*, canActivate: [AuthGuard] */ },
   { path: "welcome", component: WelcomeComponent /*, canActivate: [AuthGuard] */ }
 ];
@@ -26,6 +27,7 @@ const appRoutes = [
   ],
   declarations: [
     AppComponent,
+    RootComponent,
     DemoPageComponent,
     WelcomeComponent
   ],

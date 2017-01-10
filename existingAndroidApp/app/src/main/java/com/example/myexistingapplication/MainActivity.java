@@ -1,10 +1,12 @@
 package com.example.myexistingapplication;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
     public void showScreen1(View view) {
         showSpinner();
 
-        // TODO: Go to /welcome (currently going to "/" and being redirected)
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                setInitialRoute("/welcome");
                 show(MyCustomNativeScriptActivity.class);
             }
         }, 500);
@@ -57,18 +59,28 @@ public class MainActivity extends AppCompatActivity {
     public void showScreen2(View view) {
         showSpinner();
 
-        // TODO: Go to /demo
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                setInitialRoute("/demo");
                 show(MyCustomNativeScriptActivity.class);
             }
         }, 500);
     }
 
+    private void setInitialRoute(String initialRoute) {
+        // TODO: Isn't there a better way to do this?
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("prefs.db", 0);
+        sharedPreferences.edit().putString("initialRoute", initialRoute).apply();
+    }
+
     private <T> void show(Class<T> clazz) {
+        Log.i("MainActivity", "Calling initRuntime");
         com.tns.Runtime runtime = com.tns.RuntimeHelper.initRuntime(getApplication());
         if (runtime != null) {
+            runtime.enableVerboseLogging();
+
+            Log.i("MainActivity", "Calling run");
             runtime.run();
 
             android.content.Intent intent = new android.content.Intent(MainActivity.this, clazz);
